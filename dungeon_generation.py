@@ -6,57 +6,6 @@ CHILD_END_DIST = [[0.9, 0.1, 0.0, 0.0], [0.85, 0.1, 0.05, 0.0, 0.0, 0.0], [], [0
 SIZE_START_DIST = [0.65, 0.25, 0.1]
 SIZE_MID_DIST = [0.2, 0.35, 0.45]
 SIZE_END_DIST = [1.0, 0, 0]
-MATRIX_PRINT_ALPHABET = {
-    (1, 0, 0, 0): "?|",
-    (1, 0, 2, 0): "?|",
-    (1, 0, 1, 0): "?!",
-    (2, 1, 0, 1): "_:",
-    (2, 0, 0, 1): "_:",
-    (1, 0, 1, 1): "_:",
-    (2, 0, 0, 1): "_:",
-    (1, 3, 0, 1): " |",
-    (0, 3, 0, 1): " |",
-    (1, 2, 1, 1): " !",
-    (1, 3, 1, 1): " !",
-    (0, 2, 0 ,1): " !",
-    (1, 2, 0, 1): " !",
-    (1, 2, 1, 1): " !",
-    (2, 2, 1, 1): " :",
-    (0, 2, 2, 1): " !",
-    (1, 0, 1, 0): "?!",
-    (2, 2, 0, 1): " :",
-    (2, 2, 1, 1): " :",
-    (2, 2, 1, 1): " :",
-    (1, 1, 0, 0): "_|",
-    (0, 0, 0, 1): "_|",
-    (1, 0, 1, 1): "_!",
-    (1, 1, 1, 1): "_!",
-    (1, 1, 1, 0): '_!',
-    (3, 0, 1, 1): "_.",
-    (3, 1, 1, 1): "_.",
-    (2, 0, 1, 1): "_.",
-    (2, 2, 0, 1): " .",
-    (3, 2, 1, 1): " .",
-    (2, 2, 0, 1): " .",
-    (3, 3, 0, 1): "  ",
-    (3, 0, 0, 1): "__",
-    (0, 1, 2, 0): "__",
-    (3, 1, 0, 1): "__",
-    (0, 1, 0, 0): "_?",
-    #(0, 0, 2, 0): "?_",
-    (1, 1, 0, 0): "??",
-    (3, 3, 0, 0): "??",
-    (0, 0, 0, 0): "##"
-}
-
-
-
-
-# rightCode = 0    # 0 for none 1 for node, 2 for entrance, 3 for same node
-# downCode = 0     # 0 for none 1 for node, 2 for entrance, 3 for same node
-# diagCode = 0     # 0 for EE, 1 for entrance, 2 for node
-# isNode = 0
-
 
 
 class ChildrenDistribution:
@@ -247,62 +196,8 @@ class Matrix:
                 self.setTile(node.position[0] +  x, node.position[1] - y, node)
 
     def printMatrix(self):
-        #print(self.matrix)
         for row in self.matrix:
             print(row)
-        for y in reversed(range(len(self.matrix))):
-            strToPrint = ""
-            y -= self.size
-            #print(y)
-            for x in range(len(self.matrix[y])):
-                x -= self.size
-                curr = self.getTile(x, y)
-                next = self.getTile(x+1, y)
-                down = self.getTile(x, y-1)
-                diag = self.getTile(x+1, y-1)
-                #print(curr, next, down, diag)
-
-                rightCode = 0    # 0 for none 1 for node, 2 for entrance, 3 for same node
-                downCode = 0     # 0 for none 1 for node, 2 for entrance, 3 for same node
-                diagCode = 0     # 0 for EE, 1 for entrance, 2 for node
-                isNode = 0
-
-                if isinstance(next, Node):
-                    rightCode = 1
-                if self.isConnected(curr, next):
-                    rightCode = 2
-                if curr is next and isinstance(curr, Node):
-                    rightCode = 3
-
-                if isinstance(down, Node):
-                    downCode = 1
-                if self.isConnected(curr, down):
-                    downCode = 2
-                if curr is down and isinstance(curr, Node):
-                    downCode = 3
-                
-                if isinstance(diag, Node):
-                    diagCode = 2
-                if self.isConnected(next, diag):
-                    diagCode = 1
-               
-                if curr:
-                    isNode = 1
-                
-                code = (rightCode, downCode, diagCode, isNode)
-                #print(code)
-                if code not in MATRIX_PRINT_ALPHABET:
-                    strToPrint += "$$"
-                else:
-                    strToPrint += MATRIX_PRINT_ALPHABET[code]
-                    #print(curr, next, down, diag)
-                    #print(str(code) + " --> " + strToPrint)
-            print(strToPrint)
-
-
-    def determineCode(self, tile):
-        return
-
 
 
 def generate(size=5):
