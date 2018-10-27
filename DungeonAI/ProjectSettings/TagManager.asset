@@ -44,3 +44,9 @@ TagManager:
   - name: Floor
     uniqueID: 3161906853
     locked: 0
+  - name: Wall
+    uniqueID: 1112129171
+    locked: 0
+  - name: Beings
+    uniqueID: 1692483217
+    locked: 0
