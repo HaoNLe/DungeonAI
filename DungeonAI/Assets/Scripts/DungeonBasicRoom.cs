@@ -22,10 +22,9 @@ public class DungeonBasicRoom : MonoBehaviour {
 
     private Transform boardHolder;
     public List<Vector3> gridPositions = new List<Vector3>();
-    int rows = 12;
-    int columns = 12;
     
-    // Initializes list for inner area of room
+    // Initializes list for inner area of room 
+    /*
     void InitializeList()
     {
         gridPositions.Clear();
@@ -38,9 +37,12 @@ public class DungeonBasicRoom : MonoBehaviour {
             }
         }
     }
+    */
 
-    void GenerateRoom()
+    void GenerateRoom(int width, int height)
     {
+        int columns = width;
+        int rows = height;
         boardHolder = new GameObject("Board").transform;
 
         for (int x = -1; x < columns + 1; x++)
@@ -48,10 +50,10 @@ public class DungeonBasicRoom : MonoBehaviour {
             for (int y = -1; y < rows + 2; y++)
             {
                 // init GameObject as placeholder for our logic
-                GameObject toInstantiate = midWallTiles[0];
+                GameObject toInstantiate = midWallTiles[5];
 
                 // Generate floor tiles
-                if (0 <= x && x <= rows && 0 <= y && y <= columns)
+                if (0 <= x && x <= columns && 0 <= y && y <= rows)
                 {
 
                     // Generate bottom walltop tiles
@@ -156,7 +158,7 @@ public class DungeonBasicRoom : MonoBehaviour {
 
     public void SetupScene()
     {
-        GenerateRoom();
+        GenerateRoom(Random.Range(18,28), Random.Range(15,25));
     }
 
     // Use this for initialization
