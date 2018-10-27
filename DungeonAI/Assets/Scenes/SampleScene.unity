@@ -161,7 +161,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10.920584
+  orthographic size: 13.6458235
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.9, y: 8.44, z: -10}
+  m_LocalPosition: {x: 16.46, y: 12.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -228,7 +228,7 @@ MonoBehaviour:
   - {fileID: 1447303930183352, guid: 89ad1c028cb4d3046bfa0535436a281a, type: 2}
   - {fileID: 1629437740379880, guid: ea2b0380dec5a46498e3b96878eaf120, type: 2}
   midWallTiles:
-  - {fileID: 1702750256260626, guid: 4caedb7b0b098034082674f9a1d26c2d, type: 2}
+  - {fileID: 1159174646168458, guid: c48193337010ffc40bbd5f58354f29f6, type: 2}
   - {fileID: 1148272807102534, guid: 198b1ae9bb8097741a910f807dfb5093, type: 2}
   - {fileID: 1602228827381914, guid: 52ff0368120c74c4f9cdb7f95a45cde9, type: 2}
   - {fileID: 1639724104698796, guid: 18fe7fd7827d9444296b4e0f49c3ecc8, type: 2}

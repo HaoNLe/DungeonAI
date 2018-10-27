@@ -53,18 +53,19 @@ public class DungeonBasicRoom : MonoBehaviour {
             {
                 // init GameObject as placeholder for our logic
                 GameObject toInstantiate = midWallTiles[5];
+                GameObject instantiated;
 
                 // Generate floor tiles
-                if (0 <= x && x <= columns && 0 <= y && y <= rows)
+                if (0 <= x && x < columns && 0 <= y && y < rows)
                 {
 
-                    // Generate bottom walltop tiles
+                    // Generate bottom walltop tiles and set layer to foreground
                     if (y == 0 && 0 <= x && x < columns)
                     {
                         toInstantiate = wallTopMid;
-                        SpriteRenderer sprite = toInstantiate.GetComponent<SpriteRenderer>();
-                        sprite.sortingLayerName = FOREGROUND_LAYER_NAME;
-                        placeTile(toInstantiate, x, y);
+                        instantiated = placeTile(toInstantiate, x, y);
+                        setForeground(instantiated, FOREGROUND_LAYER_NAME);
+                        addBoxCollider(instantiated, 0.0f, -1.25f);
                     }
 
                     // choose and generate floor tile
@@ -77,87 +78,127 @@ public class DungeonBasicRoom : MonoBehaviour {
                     {
                         toInstantiate = floorTiles[0];
                     }
+                    placeTile(toInstantiate, x, y);
                 }
 
-                // Generate top wall tiles
-                if (y == rows + 1 && x == -1)
+                // Generate top walltop tiles
+                else if (y == rows + 1)
                 {
-                    toInstantiate = sideTopLeft;
+                    if (x == -1)
+                    {
+                        toInstantiate = sideTopLeft;
+                    }
+                    else if (x == columns)
+                    {
+                        toInstantiate = sideTopRight;
+                    }
+                    else if (x == 0)
+                    {
+                        toInstantiate = wallTopLeft;
+                    }
+                    else if (x == columns - 1)
+                    {
+                        toInstantiate = wallTopRight;
+                    }
+                    else
+                    {
+                        toInstantiate = wallTopMid;
+                    }
+                    instantiated = placeTile(toInstantiate, x, y);
+                    addBoxCollider(instantiated, 0.0f, -0.25f);
                 }
-                else if (y == rows + 1 && x == columns)
-                {
-                    toInstantiate = sideTopRight;
-                }
-                else if (y == rows + 1 && x == 0)
-                {
-                    toInstantiate = wallTopLeft;
-                }
-                else if (y == rows + 1 && x == columns - 1)
-                {
-                    toInstantiate = wallTopRight;
-                } else if (y == rows + 1)
-                {
-                    toInstantiate = wallTopMid;
-                }
+
                 // Generate side wall tiles
-                if (x == -1 && 0 <= y && y <= rows)
+                else if (x == -1 || x == columns)
                 {
-                    toInstantiate = sideMidLeft;
+                    if (x == -1 && 0 <= y && y <= rows)
+                    {
+                        toInstantiate = sideMidLeft;
+                    }
+                    else if (x == -1 && y == -1)
+                    {
+                        toInstantiate = sideFrontLeft;
+                    }
+                    else if (x == columns && 0 <= y && y <= rows)
+                    {
+                        toInstantiate = sideMidRight;
+                    }
+                    else if (x == columns && y == -1)
+                    {
+                        toInstantiate = sideFrontRight;
+                    }
+                    placeTile(toInstantiate, x, y);
                 }
-                else if (x == -1 && y == -1)
-                {
-                    toInstantiate = sideFrontLeft;
-                }
-                else if (x == columns && 0 <= y && y <= rows)
-                {
-                    toInstantiate = sideMidRight;
-                }
-                else if (x == columns && y == -1)
-                {
-                    toInstantiate = sideFrontRight;
-                }
+
 
                 // Generate wall tiles above and below the room
-                if (x == 0 && y == rows)
+                else
                 {
-                    toInstantiate = leftWall;
-                }
-                else if (x == columns - 1 && y == rows)
-                {
-                    toInstantiate = rightWall;
-                }
-                else if (0 < x && x < columns - 1 && y == rows)
-                {
-                    if (Random.Range(0.0f, 1.0f) > 0.65)
+                    // Above room left and right wall
+                    if (x == 0 && y == rows)
                     {
-                        toInstantiate = midWallTiles[Random.Range(0, midWallTiles.Length)];
+                        toInstantiate = leftWall;
+                        placeTile(toInstantiate, x, y);
                     }
-                    else
+                    else if (x == columns - 1 && y == rows)
                     {
-                        toInstantiate = midWallTiles[0];
+                        toInstantiate = rightWall;
+                        placeTile(toInstantiate, x, y);
                     }
-                }
-                else if (0 <= x && x < columns && y == - 1)
-                {
-                    if (Random.Range(0.0f, 1.0f) > 0.65)
+                    // Middle walls above room 
+                    else if (0 < x && x < columns - 1 && y == rows)
                     {
-                        toInstantiate = midWallTiles[Random.Range(0, midWallTiles.Length)];
+                        if (Random.Range(0.0f, 1.0f) > 0.75)
+                        {
+                            toInstantiate = midWallTiles[Random.Range(0, midWallTiles.Length)];
+                        }
+                        else
+                        {
+                            toInstantiate = midWallTiles[0];
+                        }
+                        placeTile(toInstantiate, x, y);
                     }
-                    else
+                    // Middle walls below room
+                    else if (0 <= x && x < columns && y == -1)
                     {
-                        toInstantiate = midWallTiles[0];
+                        if (Random.Range(0.0f, 1.0f) > 0.75)
+                        {
+                            toInstantiate = midWallTiles[Random.Range(0, midWallTiles.Length)];
+                        }
+                        else
+                        {
+                            toInstantiate = midWallTiles[0];
+                        }
+                        instantiated = placeTile(toInstantiate, x, y);
+                        setForeground(instantiated, FOREGROUND_LAYER_NAME);
                     }
                 }
 
-                placeTile(toInstantiate, x, y);
             }
         }
     }
 
-    void placeTile(GameObject toPlace, int x, int y)
+    // Moves a sprite to foreground
+    void setForeground(GameObject toBringForward, string layerName)
+    {
+        SpriteRenderer sprite = toBringForward.GetComponent<SpriteRenderer>();
+        sprite.sortingLayerName = layerName;
+    }
+
+    // Adds a box collider
+    void addBoxCollider(GameObject toCollide, float xOffset=0.0f, float yOffset=0.0f)
+    {
+        BoxCollider bc = toCollide.AddComponent(typeof(BoxCollider)) as BoxCollider;
+        bc.size = new Vector3(1.0f, 1.0f, 1.0f);
+        bc.center = new Vector3(xOffset, yOffset, 0.0f);
+    }
+
+    // Instantiates the tile and places it in the scene
+    GameObject placeTile(GameObject toPlace, int x, int y)
     {
         GameObject placed = Instantiate(toPlace, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
         placed.transform.SetParent(boardHolder);
+        return placed;
     }
 
     public void SetupScene()
