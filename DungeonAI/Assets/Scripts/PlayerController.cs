@@ -17,16 +17,19 @@ public class PlayerController : MonoBehaviour {
         characterController = GetComponent<CharacterController>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-        
-        // Play run animation and move the character
+
+        // Move the character
+        Vector3 moveDirection = new Vector3(moveHorizontal, moveVertical, 0.0f);
+        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = moveDirection * speed;
+        characterController.Move(moveDirection * Time.deltaTime);
+
+        // Play run animation
         animator.SetFloat("playerRun", Mathf.Abs(moveVertical) + Mathf.Abs(moveHorizontal));
-        float dy = moveVertical * speed * Time.deltaTime;
-        float dx = moveHorizontal * speed * Time.deltaTime;
-        transform.position = new Vector2(transform.position.x + dx, transform.position.y + dy);
 
         // Flip sprite if moving to left
         if (moveHorizontal < 0)

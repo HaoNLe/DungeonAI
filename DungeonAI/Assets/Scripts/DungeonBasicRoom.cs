@@ -21,6 +21,8 @@ public class DungeonBasicRoom : MonoBehaviour {
     public GameObject sideFrontRight;
 
     private Transform boardHolder;
+    private string FOREGROUND_LAYER_NAME = "Foreground";
+
     public List<Vector3> gridPositions = new List<Vector3>();
     
     // Initializes list for inner area of room 
@@ -60,6 +62,8 @@ public class DungeonBasicRoom : MonoBehaviour {
                     if (y == 0 && 0 <= x && x < columns)
                     {
                         toInstantiate = wallTopMid;
+                        SpriteRenderer sprite = toInstantiate.GetComponent<SpriteRenderer>();
+                        sprite.sortingLayerName = FOREGROUND_LAYER_NAME;
                         placeTile(toInstantiate, x, y);
                     }
 

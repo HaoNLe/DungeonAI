@@ -50,3 +50,6 @@ TagManager:
   - name: Beings
     uniqueID: 1692483217
     locked: 0
+  - name: Foreground
+    uniqueID: 1136216215
+    locked: 0
