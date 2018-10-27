@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\DungeonGenerator.cs" />
      <Compile Include="Assets\Scripts\DungeonGraph.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\PlayerController.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/Users/HuyenLe/Downloads/DungeonAI/DungeonAI/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
