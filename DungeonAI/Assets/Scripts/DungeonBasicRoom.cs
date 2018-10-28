@@ -70,7 +70,7 @@ public class DungeonBasicRoom : MonoBehaviour {
 
                     // choose and generate floor tile
                     float abnormalFloor = Random.Range(0.0f, 1.0f);
-                    if (abnormalFloor > 0.8)
+                    if (abnormalFloor > 0.9)
                     {
                         toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
                     }
@@ -148,7 +148,7 @@ public class DungeonBasicRoom : MonoBehaviour {
                     // Middle walls above room 
                     else if (0 < x && x < columns - 1 && y == rows)
                     {
-                        if (Random.Range(0.0f, 1.0f) > 0.75)
+                        if (Random.Range(0.0f, 1.0f) > 0.8)
                         {
                             toInstantiate = midWallTiles[Random.Range(0, midWallTiles.Length)];
                         }
@@ -161,7 +161,7 @@ public class DungeonBasicRoom : MonoBehaviour {
                     // Middle walls below room
                     else if (0 <= x && x < columns && y == -1)
                     {
-                        if (Random.Range(0.0f, 1.0f) > 0.75)
+                        if (Random.Range(0.0f, 1.0f) > 0.8)
                         {
                             toInstantiate = midWallTiles[Random.Range(0, midWallTiles.Length)];
                         }
