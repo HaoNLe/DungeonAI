@@ -9,12 +9,14 @@ public class tinyZombie : MonoBehaviour {
     public float minDistance = 0.5f;
 
     private Animator animator;
+    private CharacterController characterController;
     private SpriteRenderer spriteRenderer;
 
     // Use this for initialization
     void Start () {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        characterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -23,17 +25,17 @@ public class tinyZombie : MonoBehaviour {
         float range = Vector2.Distance(transform.position, target.position);
         float xMove = 0f;
         float yMove = 0f;
-
         if (minDistance < range && range < maxDistance)
         {
-            Debug.Log(range);
             Vector2 updatedPosition = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
             xMove = updatedPosition.x - transform.position.x;
             yMove = updatedPosition.y - transform.position.y;
-
-            transform.position = updatedPosition;
+            // Move the character
+            Vector3 moveDirection = new Vector3(xMove, yMove, 0.0f);
+            characterController.Move(moveDirection);
         }
-        // Set animation
+
+        // Play run animation
         animator.SetFloat("tinyZombieRun", Mathf.Abs(xMove) + Mathf.Abs(yMove));
 
         // Flip sprite if moving to left
@@ -41,7 +43,7 @@ public class tinyZombie : MonoBehaviour {
         {
             spriteRenderer.flipX = true;
         }
-        else if (xMove > 0)
+        else if (yMove > 0)
         {
             spriteRenderer.flipX = false;
         }
